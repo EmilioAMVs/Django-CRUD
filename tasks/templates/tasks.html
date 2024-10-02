@@ -15,6 +15,7 @@
         <tr>
             <th>Título</th>
             <th>Descripción</th>
+            <th>Importancia</th>
             <th>Fecha de Creación</th>
             <th>Acciones</th>
         </tr>
@@ -30,6 +31,13 @@
                     {% endif %}
             </td>
             <td>{{ task.descripcion }}</td>
+            <td>
+                {% if task.importante %}
+                <span class="badge bg-danger">Alta</span> <!-- Visualización de la importancia -->
+                {% else %}
+                <span class="badge bg-secondary">Normal</span>
+                {% endif %}
+            </td>
             <td>{{ task.creado }}</td>
             <td>
                 <!-- Botones para acciones -->

@@ -94,18 +94,22 @@ def delete_task(request, task_id):
     return redirect('tasks')
 
 def edit_task(request, task_id):
-    task = Task.objects.get(pk=task_id)
+    # Obtenemos la tarea por ID, si no existe retorna un error 404
+    task = get_object_or_404(Task, pk=task_id, usuario=request.user)
+    
     if request.method == 'GET':
+        # Si es una solicitud GET, cargamos el formulario con los datos de la tarea actual
         form = TaskForm(instance=task)
-        return render(request, 'edit_task.html', {'task': task, 'form': form})
+        return render(request, 'edit_task.html', {'form': form, 'task': task})
     else:
         try:
+            # Si es una solicitud POST, guardamos los nuevos datos
             form = TaskForm(request.POST, instance=task)
-            form.save()
-            return redirect('tasks')
+            if form.is_valid():
+                form.save()
+                return redirect('tasks')
+            else:
+                return render(request, 'edit_task.html', {'form': form, 'task': task, 'error': 'Datos no válidos'})
         except ValueError:
-            return render(request, 'edit_task.html', {
-                'task': task,
-                'form': form,
-                'error': 'Error en los datos'
-            })
+            return render(request, 'edit_task.html', {'form': form, 'task': task, 'error': 'Error en los datos'})
+

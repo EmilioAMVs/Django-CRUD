@@ -1,15 +1,35 @@
 {% extends 'index.html' %}
 
 {% block content %}
-
-{% if task %}
-    <h1>{{ task.titulo }}</h1>
-    <p>{{ task.descripcion }}</p>
-    <p>{{ task.importante }}</p>
-    <p>{{ task.creado }}</p>
-    <p>{{ task.usuario}}</p>
-{% else %}
-    <p>No existe la tarea</p>
-{% endif %}
-
+<div class="container mt-4">
+    {% if task %}
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2>Información de la Tarea</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Título: <strong>{{ task.titulo }}</strong></h4>
+            <p class="card-text"><strong>Descripción:</strong> {{ task.descripcion }}</p>
+            <p class="card-text"><strong>Importancia:</strong> 
+                {% if task.importante %}
+                    <span class="badge bg-danger">Alta</span>
+                {% else %}
+                    <span class="badge bg-secondary">Normal</span>
+                {% endif %}
+            </p>
+            <p class="card-text"><strong>Fecha de Creación:</strong> {{ task.creado|date:"d M Y H:i" }}</p>
+            <p class="card-text"><strong>Asignado a:</strong> {{ task.usuario }}</p>
+        </div>
+        <div class="card-footer text-end">
+            <a href="{% url 'edit_task' task.id %}" class="btn btn-warning">Editar</a>
+            <a href="{% url 'delete_task' task.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta tarea?');">Eliminar</a>
+            <a href="{% url 'tasks' %}" class="btn btn-secondary">Volver a Lista de Tareas</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        <p>No existe la tarea</p>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

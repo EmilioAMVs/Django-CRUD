@@ -1,12 +1,12 @@
-{% extends "index.html" %}
+{% extends 'index.html' %}
 
 {% load widget_tweaks %}  <!-- Cargar la biblioteca de tweaks -->
 
 {% block content %}
 <div class="container mt-4">
     <div class="card shadow-sm">
-        <div class="card-header bg-success text-white">
-            <h2>Crear Tarea</h2>
+        <div class="card-header bg-info text-white">
+            <h2>Editar Tarea: {{ task.titulo }}</h2>
         </div>
         <div class="card-body">
             <!-- Muestra mensajes de error si existen -->
@@ -16,15 +16,15 @@
                 </div>
             {% endif %}
 
-            <form action="/tasks/create/" method="POST">
+            <form method="POST">
                 {% csrf_token %}
-
-                <!-- Renderiza el formulario con clases de Bootstrap -->
+                
+                <!-- Renderiza el formulario de la tarea con clases de Bootstrap -->
                 <div class="form-group mb-3">
                     <label for="id_titulo">Título</label>
                     {{ form.titulo|attr:"class:form-control" }}
                 </div>
-
+                
                 <div class="form-group mb-3">
                     <label for="id_descripcion">Descripción</label>
                     {{ form.descripcion|attr:"class:form-control" }}
@@ -35,7 +35,7 @@
                     {{ form.importante|add_class:"form-control" }} <!-- Lista desplegable -->
                 </div>
 
-                <button class="btn btn-success" type="submit">Crear</button>
+                <button class="btn btn-primary" type="submit">Guardar Cambios</button>
                 <a href="{% url 'tasks' %}" class="btn btn-secondary">Cancelar</a>
             </form>
         </div>
