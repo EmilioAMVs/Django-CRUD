@@ -1,0 +1,18 @@
+{% extends  "index.html" %}
+
+{% block content %}
+    <h2>Crear Tarea</h2>
+
+    {{ error }}
+
+    <form action="/tasks/create/" method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button>
+            Crear
+        </button>
+    </form>
+{% endblock %}

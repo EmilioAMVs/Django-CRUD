@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+{% if task %}
+    <h1>{{ task.titulo }}</h1>
+    <p>{{ task.descripcion }}</p>
+    <p>{{ task.importante }}</p>
+    <p>{{ task.creado }}</p>
+    <p>{{ task.usuario}}</p>
+{% else %}
+    <p>No existe la tarea</p>
+{% endif %}
+
+{% endblock %}
