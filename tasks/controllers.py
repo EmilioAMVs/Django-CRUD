@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.db import IntegrityError
-from .forms import TaskForm
+from .forms import TaskForm, CustomAuthenticationForm
 from .models import Task
 
 def home(request):
@@ -20,7 +20,7 @@ def signup(request):
                 usuario = User.objects.create_user(
                     username=request.POST['username'], password=request.POST['password1'])
                 usuario.save()
-                login(request, usuario)  # Asegúrate de usar `usuario` aquí
+                login(request, usuario)  
                 return redirect('tasks')
             except IntegrityError:
                 return render(request, 'signup.html', {
@@ -34,8 +34,7 @@ def signup(request):
         })
 
 def tasks(request):
-    # Cambia `user` a `usuario`
-    tasks = Task.objects.filter(usuario=request.user, completado=False)  # Aquí se usa `usuario`
+    tasks = Task.objects.filter(usuario=request.user, completado=False) 
     return render(request, 'tasks.html', {'tasks': tasks, 'user': request.user})
 
 def signout(request):
@@ -45,19 +44,19 @@ def signout(request):
 def signin(request):
     if request.method == 'GET':
         return render(request, 'signin.html', {
-            'form': AuthenticationForm
+            'form': CustomAuthenticationForm()
         })
     else:
-        # Asegúrate de que el nombre de usuario y contraseña se correspondan con el modelo User
+        
         usuario = authenticate(
             request, username=request.POST['username'], password=request.POST['password'])
-        if usuario is None:  # Cambia `user` a `usuario`
+        if usuario is None:  
             return render(request, 'signin.html', {
-                'form': AuthenticationForm,
+                'form': CustomAuthenticationForm(),
                 'error': 'Usuario o contraseña incorrectos'
             })
         else:
-            login(request, usuario)  # Usa `usuario` aquí
+            login(request, usuario)  
             return redirect('tasks')
 
 def create_task(request):
@@ -69,7 +68,7 @@ def create_task(request):
         try:
             form = TaskForm(request.POST)
             new_task = form.save(commit=False)
-            new_task.usuario = request.user  # Cambia `user` a `usuario`
+            new_task.usuario = request.user  
             new_task.save()
             return redirect('tasks')
         except ValueError:
