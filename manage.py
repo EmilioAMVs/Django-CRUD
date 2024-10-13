@@ -21,7 +21,7 @@ def main():
 
     # Verificar si el primer argumento es "runserver" y no hay un puerto especificado
     if len(sys.argv) == 2 and sys.argv[1] == 'runserver':
-        sys.argv.append(f'127.0.0.1:{port}')
+        sys.argv.append(f'0.0.0.0:{port}')
     
     execute_from_command_line(sys.argv)
 
