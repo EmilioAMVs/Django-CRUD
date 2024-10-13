@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qu$vzi8n+t$ac=7*95@f*y-5%i!t-b^tv_ztj7(s(z4-p86x^y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['taskmaster.azurewebsites.net', '127.0.0.1','localhost']
+ALLOWED_HOSTS = ['taskmaster.azurewebsites.net','https://taskmaster.azurewebsites.net' '127.0.0.1','localhost']
 
 # Redirige al home si no está autenticado
 LOGIN_URL = '/'
