@@ -1,6 +1,6 @@
 TaskMaster - Lista de Tareas
 
-TaskMaster es una aplicación web que permite a los usuarios gestionar sus tareas de manera eficiente. Los usuarios pueden crear, editar, eliminar y visualizar sus tareas, con la opción de asignar prioridades y fechas límite. Está desarrollado con Django como framework de backend y Bootstrap para el frontend, proporcionando una experiencia visual intuitiva y responsiva.
+TaskMaster es una aplicación web que permite a los usuarios gestionar sus tareas de manera eficiente. Los usuarios pueden crear, editar, eliminar y visualizar sus tareas, con la opción de asignar prioridades y fechas límite. Está desarrollado con Django como framework de backend y Bootstrap para el frontend, proporcionando una experiencia visual intuitiva y responsiva. Además de un deploy en Azure.
 
 Características
 
@@ -26,7 +26,7 @@ Instalación y Configuración
 
 Requisitos Previos
 
-	•	Python 3.8 o superior.
+	•	Python 3.12
 	•	Virtualenv para aislar el entorno del proyecto.
 	•	Django 5.1.1 instalado.
 
@@ -35,7 +35,7 @@ Instrucciones de Instalación
 	1.	Clonar este repositorio:
 
 git clone https://github.com/EmilioAMVs/Django-CRUD.git
-cd taskmaster
+cd Django-CRUD
 
 
 	2.	Crear un entorno virtual e instalar dependencias:
@@ -62,7 +62,7 @@ Despliegue en Azure
 Para desplegar en Azure, asegúrate de:
 
 	•	Configurar las variables de entorno como ALLOWED_HOSTS y CSRF_TRUSTED_ORIGINS.
-	•	Asegurar que tienes los archivos requirements.txt y Procfile para el despliegue.
+	•	Asegurar que tienes el archivo requirements.txt actualizado con todas las dependencias.
 
 
 Este README cubre los aspectos esenciales del proyecto, desde las funcionalidades hasta la instalación y despliegue.
