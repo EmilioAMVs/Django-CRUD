@@ -6,8 +6,28 @@ from django.db import IntegrityError
 from .forms import TaskForm, CustomAuthenticationForm
 from .models import Task
 
+from django.shortcuts import render
+from .models import Task
+
+
 def home(request):
-    return render(request, 'home.html')
+    # Verifica que el usuario esté autenticado
+    if request.user.is_authenticated:
+        user = request.user
+        # Contar tareas del usuario
+        pending_tasks_count = Task.objects.filter(usuario=user, completado=False).count()
+        completed_tasks_count = Task.objects.filter(usuario=user, completado=True).count()
+    else:
+        user = None
+        pending_tasks_count = 0
+        completed_tasks_count = 0
+
+    return render(request, 'home.html', {
+        'user': user,
+        'pending_tasks_count': pending_tasks_count,
+        'completed_tasks_count': completed_tasks_count,
+    })
+
 
 def signup(request):
     if request.method == 'GET':
@@ -33,10 +53,6 @@ def signup(request):
             'error': 'Las contraseñas no coinciden'
         })
 
-def tasks(request):
-    tasks = Task.objects.filter(usuario=request.user, completado=False) 
-    return render(request, 'tasks.html', {'tasks': tasks, 'user': request.user})
-
 def signout(request):
     logout(request)
     return redirect('home')
@@ -58,6 +74,10 @@ def signin(request):
         else:
             login(request, usuario)  
             return redirect('tasks')
+   
+def tasks(request):
+    tasks = Task.objects.filter(usuario=request.user, completado=False) 
+    return render(request, 'tasks.html', {'tasks': tasks, 'user': request.user})
 
 def create_task(request):
     if request.method == 'GET':

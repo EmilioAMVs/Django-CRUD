@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Redirige al home si no está autenticado
+LOGIN_URL = '/'
 
 # Application definition
 

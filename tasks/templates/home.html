@@ -1,6 +1,21 @@
-    {% extends 'index.html' %}
-     
-    {% block content %}
-    <h1>Inicio</h1>
-    <p>Bienvenido a la aplicación de tareas</p>
-    {% endblock %}
+{% extends 'index.html' %}  <!-- Asegúrate de que la plantilla base esté configurada -->
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center">Inicio</h1>
+        <p class="text-center">Bienvenido a la aplicación de tareas</p>
+
+        {% if user %}
+            <div class="card mb-4">
+                <div class="card-body text-left">
+                    <h2 class="card-title">{{ user.username }}</h2>
+                    <p class="card-text">Tareas Pendientes: <strong>{{ pending_tasks_count }}</strong></p>
+                    <p class="card-text">Tareas Completadas: <strong>{{ completed_tasks_count }}</strong></p>
+                    <a href="{% url 'tasks' %}" class="btn btn-primary">Ver listado de tareas</a>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-center">Por favor, inicia sesión para ver tus tareas.</p>
+        {% endif %}
+    </div>
+{% endblock %}

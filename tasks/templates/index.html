@@ -21,7 +21,10 @@
                 <!-- Opciones a la izquierda -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'tasks' %}">Tareas Pendientes</a>
+                        {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'tasks' %}">Lista de Tareas</a>
+                        {% else %}
+                        {% endif %}
                     </li>
                 </ul>
                 

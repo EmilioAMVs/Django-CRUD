@@ -21,5 +21,5 @@ class CustomAuthenticationForm(AuthenticationForm):
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Contraseña'
-    }))
+        'placeholder': 'Contraseña' 
+    })) 

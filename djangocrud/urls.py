@@ -17,17 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from tasks import controllers
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', controllers.home, name='home'),
     path('signup/', controllers.signup,name='signup'),
-    path('tasks/', controllers.tasks, name='tasks'),
-    path('tasks/create/', controllers.create_task, name='create_task'),
-    path('tasks/detail/<int:task_id>/', controllers.task_detail, name='task_detail'),
-    path('tasks/complete/<int:task_id>/', controllers.complete_task, name='complete_task'),
-    path('tasks/delete/<int:task_id>/', controllers.delete_task, name='delete_task'),
-    path('taskks/edit/<int:task_id>/', controllers.edit_task, name='edit_task'),
     path('signout/', controllers.signout, name='signout'),
     path('signin/', controllers.signin, name='signin'), 
+    # Redirigir al home si no está autenticado
+    path('tasks/', login_required(controllers.tasks, login_url='/'), name='tasks'),  
+    path('tasks/create/', login_required(controllers.create_task, login_url='/'), name='create_task'),
+    path('tasks/detail/<int:task_id>/', login_required(controllers.task_detail, login_url='/'), name='task_detail'),
+    path('tasks/complete/<int:task_id>/', login_required(controllers.complete_task, login_url='/'), name='complete_task'),
+    path('tasks/delete/<int:task_id>/', login_required(controllers.delete_task, login_url='/'), name='delete_task'),
+    path('taskks/edit/<int:task_id>/', login_required(controllers.edit_task, login_url='/'), name='edit_task'),
 ]
