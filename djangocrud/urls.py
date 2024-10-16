@@ -26,10 +26,11 @@ urlpatterns = [
     path('signout/', controllers.signout, name='signout'),
     path('signin/', controllers.signin, name='signin'), 
     # Redirigir al home si no está autenticado
-    path('tasks/', login_required(controllers.tasks, login_url='/'), name='tasks'),  
+    path('pending_tasks/', login_required(controllers.tasks, login_url='/'), name='pending_tasks'),  
     path('tasks/create/', login_required(controllers.create_task, login_url='/'), name='create_task'),
     path('tasks/detail/<int:task_id>/', login_required(controllers.task_detail, login_url='/'), name='task_detail'),
-    path('tasks/complete/<int:task_id>/', login_required(controllers.complete_task, login_url='/'), name='complete_task'),
+    path('tasks/complete/<int:task_id>/', login_required(controllers.complete_task, login_url='/'), name='task_complete'),
     path('tasks/delete/<int:task_id>/', login_required(controllers.delete_task, login_url='/'), name='delete_task'),
-    path('taskks/edit/<int:task_id>/', login_required(controllers.edit_task, login_url='/'), name='edit_task'),
+    path('tasks/edit/<int:task_id>/', login_required(controllers.edit_task, login_url='/'), name='edit_task'),
+    path('completed_tasks/', login_required(controllers.completed_tasks, login_url='/'), name='completed_tasks')
 ]

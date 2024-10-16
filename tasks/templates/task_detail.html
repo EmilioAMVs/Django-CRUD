@@ -23,7 +23,7 @@
         <div class="card-footer text-end">
             <a href="{% url 'edit_task' task.id %}" class="btn btn-warning">Editar</a>
             <a href="{% url 'delete_task' task.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta tarea?');">Eliminar</a>
-            <a href="{% url 'tasks' %}" class="btn btn-secondary">Volver a Lista de Tareas</a>
+            <a href="{% url 'pending_tasks' %}" class="btn btn-secondary">Volver a Lista de Tareas</a>
         </div>
     </div>
     {% else %}

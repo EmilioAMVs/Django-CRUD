@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<h1>Tareas Completadas</h1>
+<br>
+{% if tasks %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="text-center">Título</th>
+                <th class="text-center">Importancia</th>
+                <th class="text-center">Fecha de Creación</th>
+                <th class="text-center">Fecha de Completado</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <!-- Título -->
+                <td class="text-center" onclick="window.location='{% url 'task_detail' task.id %}'" style="cursor: pointer;">
+                    {{ task.titulo }}
+                </td>
+                <!-- Importancia -->
+                <td class="text-center">
+                    {% if task.importante %}
+                    <span class="badge bg-danger">Alta</span>
+                    {% else %}
+                    <span class="badge bg-secondary">Normal</span>
+                    {% endif %}
+                </td>
+                <!-- Fecha de Creación -->
+                <td class="text-center">{{ task.creado }}</td>
+                <!-- Fecha de Completado -->
+                <td class="text-center">{{ task.fechacompletado }}</td>
+                <!-- Acciones -->
+                <td class="text-center">
+                    <!-- Marcar como incompleta -->
+                    <form action="{% url 'task_complete' task.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-sm">Marcar como Incompleta</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+    <p>No hay tareas completadas</p>
+{% endif %}
+{% endblock %}
